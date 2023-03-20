@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { Organization } from './organization'
 
 describe('Organization', () => {
-  it('Should be able create a pet', () => {
+  it('Should be able create a organization', () => {
     const organization = new Organization({
       name: 'organization example',
       email: 'organization@email.com',
