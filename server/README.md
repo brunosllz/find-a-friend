@@ -4,16 +4,17 @@ Find a friend.
 
 ## RFs (Requisitos funcionais)
 
-- [ ] Deve ser possível cadastrar um organização;
+- [x] Deve ser possível cadastrar um organização;
 - [ ] Deve ser possível se autenticar;
+- [ ] Deve ser possível listar o perfil do usuário;
 - [ ] Deve ser possível cadastrar um pet;
 - [ ] Deve ser listar todos os pets;
 - [ ] Deve ser filtrar os pets;
 
 ## RNs (Regras de negócio)
 
-- [ ] O usuário não deve poder se cadastrar com um e-mail duplicado;
-- [ ] A senha do usuário deve ser hashed;
+- [x] Não deve ser possivél cadastrar uma organização com o e-mail duplicado;
+- [x] A senha do usuário deve ser hashed;
 - [ ] A senha do usuário deve conter no minimo 8 caracteres, sendo 1 número, 1 carater especial, 1 caracter minúsculo e maiusculo;
 
 ## RNFs (Requisitos não funcionais)
