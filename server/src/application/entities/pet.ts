@@ -12,17 +12,22 @@ interface PetProps {
   type: 'dog' | 'cat'
   photo: string
   orgId: string
+  createdAt: Date
 }
 
 export class Pet {
   private props: PetProps
   private _id: string
 
-  constructor(props: Replace<PetProps, { orgId?: string }>, id?: string) {
+  constructor(
+    props: Replace<PetProps, { orgId?: string; createdAt?: Date }>,
+    id?: string,
+  ) {
     this._id = id ?? randomUUID()
     this.props = {
       ...props,
       orgId: props.orgId ?? randomUUID(),
+      createdAt: props.createdAt ?? new Date(),
     }
   }
 
