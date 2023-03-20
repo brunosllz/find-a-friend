@@ -1,5 +1,7 @@
 import { Organization } from '../entities/organization'
 import { OrganizationRepository } from '../repositories/organization-repository'
+import { OrganizationAlreadyExistsError } from './errors/organization-already-exists-error'
+import { hash } from 'bcryptjs'
 
 interface OrganizationUseCaseRequest {
   address: string
@@ -8,6 +10,10 @@ interface OrganizationUseCaseRequest {
   name: string
   password: string
   phoneNumber: string
+}
+
+interface OrganizationUseCaseResponse {
+  organization: Organization
 }
 
 export class OrganizationUseCase {
@@ -20,20 +26,22 @@ export class OrganizationUseCase {
     name,
     password,
     phoneNumber,
-  }: OrganizationUseCaseRequest) {
+  }: OrganizationUseCaseRequest): Promise<OrganizationUseCaseResponse> {
+    const passwordHashed = await hash(password, 8)
+
     const createdOrganization = new Organization({
       address,
       cep,
       email,
       name,
-      password,
+      password: passwordHashed,
       phoneNumber,
     })
 
     const orgExists = await this.organizationRepository.findByEmail(email)
 
     if (orgExists) {
-      throw new Error('Organization already exists.')
+      throw new OrganizationAlreadyExistsError()
     }
 
     const organization = await this.organizationRepository.create(
