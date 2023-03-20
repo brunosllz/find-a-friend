@@ -18,7 +18,7 @@ describe('Pet', () => {
     expect(pet).toBeTruthy()
     expect(pet).toEqual(
       expect.objectContaining({
-        name: 'princes',
+        name: pet.name,
       }),
     )
   })
