@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto'
 import { Replace } from '../helpers/Replace'
 
-export interface OrganizationProps {
+export type OrganizationProps = {
   name: string
   email: string
   password: string
