@@ -9,4 +9,8 @@ export class InMemoryPetsRepository implements PetsRepository {
 
     return pet
   }
+
+  async findMany(page: number) {
+    return this.pets.slice((page - 1) * 20, page * 20)
+  }
 }
