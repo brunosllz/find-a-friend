@@ -1,9 +1,9 @@
 import { Organization } from '@/application/entities/organization'
-import { OrganizationRepository } from '@/application/repositories/organization-repository'
+import { OrganizationsRepository } from '@/application/repositories/organizations-repository'
 import { prisma } from '@/infra/database/prisma'
 import { PrismaOrganizationMapper } from '../mappers/prisma-organization-mapper'
 
-export class PrismaOrganizationRepository implements OrganizationRepository {
+export class PrismaOrganizationsRepository implements OrganizationsRepository {
   async create(organization: Organization) {
     const raw = PrismaOrganizationMapper.toPrisma(organization)
 

@@ -1,7 +1,9 @@
 import { Organization } from '@/application/entities/organization'
-import { OrganizationRepository } from '@/application/repositories/organization-repository'
+import { OrganizationsRepository } from '@/application/repositories/organizations-repository'
 
-export class InMemoryOrganizationRepository implements OrganizationRepository {
+export class InMemoryOrganizationsRepository
+  implements OrganizationsRepository
+{
   private organizations: Organization[] = []
 
   async create(organization: Organization) {

@@ -1,5 +1,5 @@
 import { Pet } from '../entities/pet'
 
-export interface PetRepository {
+export interface PetsRepository {
   create(pet: Pet): Promise<Pet>
 }

@@ -1,25 +1,25 @@
 import { MakeOrganization } from 'test/factories/organization-factory'
-import { InMemoryOrganizationRepository } from 'test/repositories/in-memory-organization-repository'
-import { InMemoryPetRepository } from 'test/repositories/in-memory-pet-repository'
+import { InMemoryOrganizationsRepository } from 'test/repositories/in-memory-organizations-repository'
+import { InMemoryPetsRepository } from 'test/repositories/in-memory-pets-repository'
 import { describe, expect, it, beforeEach } from 'vitest'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 import { CreatePetUseCase } from './create-pet'
 
 describe('Create pet use case', () => {
-  let petRepository: InMemoryPetRepository
-  let organizationRepository: InMemoryOrganizationRepository
+  let petsRepository: InMemoryPetsRepository
+  let organizationsRepository: InMemoryOrganizationsRepository
   let sut: CreatePetUseCase
 
   beforeEach(() => {
-    petRepository = new InMemoryPetRepository()
-    organizationRepository = new InMemoryOrganizationRepository()
-    sut = new CreatePetUseCase(petRepository, organizationRepository)
+    petsRepository = new InMemoryPetsRepository()
+    organizationsRepository = new InMemoryOrganizationsRepository()
+    sut = new CreatePetUseCase(petsRepository, organizationsRepository)
   })
 
   it('Should be able register a pet with org id valid', async () => {
     const createdOrganization = MakeOrganization()
 
-    const organization = await organizationRepository.create(
+    const organization = await organizationsRepository.create(
       createdOrganization,
     )
 

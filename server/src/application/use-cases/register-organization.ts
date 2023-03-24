@@ -1,5 +1,5 @@
 import { Organization } from '../entities/organization'
-import { OrganizationRepository } from '../repositories/organization-repository'
+import { OrganizationsRepository } from '../repositories/organizations-repository'
 import { OrganizationAlreadyExistsError } from './errors/organization-already-exists-error'
 import { hash } from 'bcryptjs'
 
@@ -18,7 +18,7 @@ type RegisterOrganizationUseCaseResponse = {
 
 export class RegisterOrganizationUseCase {
   constructor(
-    private readonly organizationRepository: OrganizationRepository,
+    private readonly organizationsRepository: OrganizationsRepository,
   ) {}
 
   async execute({
@@ -29,7 +29,7 @@ export class RegisterOrganizationUseCase {
     password,
     phoneNumber,
   }: RegisterOrganizationUseCaseRequest): Promise<RegisterOrganizationUseCaseResponse> {
-    const orgExists = await this.organizationRepository.findByEmail(email)
+    const orgExists = await this.organizationsRepository.findByEmail(email)
 
     if (orgExists) {
       throw new OrganizationAlreadyExistsError()
@@ -46,7 +46,7 @@ export class RegisterOrganizationUseCase {
       phoneNumber,
     })
 
-    const organization = await this.organizationRepository.create(
+    const organization = await this.organizationsRepository.create(
       createdOrganization,
     )
 

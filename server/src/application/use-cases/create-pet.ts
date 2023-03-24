@@ -1,6 +1,6 @@
 import { Pet } from '../entities/pet'
-import { OrganizationRepository } from '../repositories/organization-repository'
-import { PetRepository } from '../repositories/pet-repository'
+import { OrganizationsRepository } from '../repositories/organizations-repository'
+import { PetsRepository } from '../repositories/pets-repository'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
 type CreatePetUseCaseRequest = {
@@ -22,8 +22,8 @@ type CreatePetUseCaseResponse = {
 
 export class CreatePetUseCase {
   constructor(
-    private petRepository: PetRepository,
-    private organizationRepository: OrganizationRepository,
+    private petsRepository: PetsRepository,
+    private organizationsRepository: OrganizationsRepository,
   ) {}
 
   async execute({
@@ -38,7 +38,7 @@ export class CreatePetUseCase {
     photo,
     orgId,
   }: CreatePetUseCaseRequest): Promise<CreatePetUseCaseResponse> {
-    const orgExists = await this.organizationRepository.findById(orgId)
+    const orgExists = await this.organizationsRepository.findById(orgId)
 
     if (!orgExists) {
       throw new ResourceNotFoundError()
@@ -57,7 +57,7 @@ export class CreatePetUseCase {
       orgId,
     })
 
-    const pet = await this.petRepository.create(createdPet)
+    const pet = await this.petsRepository.create(createdPet)
 
     return { pet }
   }

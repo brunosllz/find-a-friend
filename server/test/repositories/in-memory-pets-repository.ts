@@ -1,7 +1,7 @@
 import { Pet } from '@/application/entities/pet'
-import { PetRepository } from '@/application/repositories/pet-repository'
+import { PetsRepository } from '@/application/repositories/pets-repository'
 
-export class InMemoryPetRepository implements PetRepository {
+export class InMemoryPetsRepository implements PetsRepository {
   private pets: Pet[] = []
 
   async create(pet: Pet) {
