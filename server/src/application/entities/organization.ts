@@ -1,5 +1,6 @@
 import { randomUUID } from 'node:crypto'
 import { Replace } from '../helpers/Replace'
+import { PasswordNotCorrectly } from './errors/password-not-correctly-error'
 
 export type OrganizationProps = {
   name: string
@@ -15,10 +16,24 @@ export class Organization {
   private props: OrganizationProps
   private _id: string
 
+  private validateCorrectlyPasswordPattern(password: string): boolean {
+    const validatePassword =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>\/?]).{8,}$/
+
+    return validatePassword.test(password)
+  }
+
   constructor(
     props: Replace<OrganizationProps, { createdAt?: Date }>,
     id?: string,
   ) {
+    const doesPasswordHasCorrectlyPattern =
+      this.validateCorrectlyPasswordPattern(props.password)
+
+    if (!doesPasswordHasCorrectlyPattern) {
+      throw new PasswordNotCorrectly()
+    }
+
     this._id = id ?? randomUUID()
     this.props = {
       ...props,
