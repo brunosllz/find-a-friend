@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto'
 import { Replace } from '../helpers/Replace'
 
-type PetProps = {
+export type PetProps = {
   name: string
   description: string
   city: string
