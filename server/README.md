@@ -11,8 +11,8 @@ Find a friend.
 - [x] Deve ser listar todos os pets por cidade;
 - [x] Deve ser filtrar os pets;
 - [x] Deve ser possivel buscar um pet;
-- [ ] Deve ser possivel listar todos os estados do brasil;
-- [ ] Deve ser possivel listar todos as cidades do brasil;
+- [x] Deve ser possivel listar todos os estados do brasil;
+- [x] Deve ser possivel listar todas as cidades de acordo com o estado;
 
 ## RNs (Regras de negócio)
 
@@ -20,6 +20,7 @@ Find a friend.
 - [x] A senha do usuário deve ser hashed;
 - [x] A senha do usuário deve conter no minimo 8 caracteres, sendo 1 número, 1 carater especial, 1 caracter minúsculo e maiusculo;
 - [ ] A consulta de cep dever ser realizado através de um serviço externo;
+- [x] A listagem de estados e cidades devem ser realizadas através de um serviço externo;
 - [ ] O pet deve deve ser cadastro com energia no minimo 1, no maximo 5;
 
 ## RNFs (Requisitos não funcionais)
