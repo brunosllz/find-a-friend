@@ -7,9 +7,12 @@ Find a friend.
 - [x] Deve ser possível cadastrar um organização;
 - [ ] Deve ser possível se autenticar;
 - [ ] Deve ser possível listar o perfil do usuário;
-- [ ] Deve ser possível cadastrar um pet;
-- [ ] Deve ser listar todos os pets;
-- [ ] Deve ser filtrar os pets;
+- [x] Deve ser possível cadastrar um pet;
+- [x] Deve ser listar todos os pets por cidade;
+- [x] Deve ser filtrar os pets;
+- [ ] Deve ser possivel buscar um pet;
+- [ ] Deve ser possivel listar todos os estados do brasil;
+- [ ] Deve ser possivel listar todos as cidades do brasil;
 
 ## RNs (Regras de negócio)
 
@@ -17,6 +20,7 @@ Find a friend.
 - [x] A senha do usuário deve ser hashed;
 - [x] A senha do usuário deve conter no minimo 8 caracteres, sendo 1 número, 1 carater especial, 1 caracter minúsculo e maiusculo;
 - [ ] A consulta de cep dever ser realizado através de um serviço externo;
+- [ ] O pet deve deve ser cadastro com energia no minimo 1, no maximo 5;
 
 ## RNFs (Requisitos não funcionais)
 
