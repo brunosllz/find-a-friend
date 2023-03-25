@@ -5,10 +5,10 @@ type Override = Partial<PetProps>
 export function MakePet(override: Override = {}, id?: string) {
   return new Pet(
     {
-      name: 'princes',
+      name: 'unnamed pet',
       age: 'elderly',
       city: 'any where',
-      description: 'Is a pet',
+      description: 'description pet example',
       energy: 5,
       independence: 'high',
       photo: 'https://www.pet-images.com/image.png',
