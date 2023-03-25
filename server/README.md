@@ -10,7 +10,7 @@ Find a friend.
 - [x] Deve ser possível cadastrar um pet;
 - [x] Deve ser listar todos os pets por cidade;
 - [x] Deve ser filtrar os pets;
-- [ ] Deve ser possivel buscar um pet;
+- [x] Deve ser possivel buscar um pet;
 - [ ] Deve ser possivel listar todos os estados do brasil;
 - [ ] Deve ser possivel listar todos as cidades do brasil;
 
