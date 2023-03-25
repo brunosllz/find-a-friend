@@ -12,23 +12,29 @@ export type PetProps = {
   type: 'dog' | 'cat'
   photo: string
   orgId: string
-  createdAt: Date
+  createdAt?: Date
+  [key: string]: any
 }
 
 export class Pet {
   private props: PetProps
   private _id: string
 
-  constructor(
-    props: Replace<PetProps, { orgId?: string; createdAt?: Date }>,
-    id?: string,
-  ) {
+  constructor(props: PetProps, id?: string) {
     this._id = id ?? randomUUID()
     this.props = {
       ...props,
       orgId: props.orgId ?? randomUUID(),
       createdAt: props.createdAt ?? new Date(),
     }
+  }
+
+  public containsProps(
+    props: Replace<Partial<PetProps>, { [key: string]: any }>,
+  ): boolean {
+    return Object.keys(props).every(
+      (key) => this.props.hasOwnProperty(key) && this.props[key] === props[key],
+    )
   }
 
   public get id() {
@@ -52,19 +58,19 @@ export class Pet {
   }
 
   public get city() {
-    return this.props.description
+    return this.props.city
   }
 
   public set city(city: string) {
-    this.props.description = city
+    this.props.city = city
   }
 
   public get age() {
-    return this.props.description
+    return this.props.age
   }
 
-  public set age(age: string) {
-    this.props.description = age
+  public set age(age: 'cub' | 'adolescent' | 'elderly') {
+    this.props.age = age
   }
 
   public get energy() {
