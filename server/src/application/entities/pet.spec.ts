@@ -14,4 +14,13 @@ describe('Pet', () => {
       }),
     )
   })
+
+  it('Should be not able create a pet with energy less than one and more than five', () => {
+    expect(() =>
+      MakePet({
+        name: 'princess',
+        energy: 6,
+      }),
+    ).toThrow()
+  })
 })
