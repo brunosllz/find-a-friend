@@ -20,8 +20,19 @@ export class Pet {
   private props: PetProps
   private _id: string
 
+  private validateAmountEnergy(energy: number): boolean {
+    return energy > 0 && energy <= 5
+  }
+
   constructor(props: PetProps, id?: string) {
     this._id = id ?? randomUUID()
+
+    const isEnergyAmountValid = this.validateAmountEnergy(props.energy)
+
+    if (!isEnergyAmountValid) {
+      throw new Error('Energy amount is not valid.')
+    }
+
     this.props = {
       ...props,
       orgId: props.orgId ?? randomUUID(),
