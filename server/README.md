@@ -26,5 +26,6 @@ Find a friend.
 ## RNFs (Requisitos não funcionais)
 
 - [ ] O usuário deve ser identificado por um JWT (JSON Web Token);
+- [ ] Deve realizado a validação do param recebido na rota de buscar as cidades pelo estado;
 - [x] Os dados da aplicação devem ser persistidos em um banco MySQL;
 - [x] Todas listas de dados precisam estar paginadas com 20 itens por página;
