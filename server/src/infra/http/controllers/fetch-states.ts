@@ -1,5 +1,5 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
-import { MakeFetchStatesUseCase } from './factories/make-fetch-states'
+import { MakeFetchStatesUseCase } from './factories/make-fetch-states-use-case'
 
 export async function FetchStatesController(
   _: FastifyRequest,
@@ -9,5 +9,5 @@ export async function FetchStatesController(
 
   const states = await fetchStatesUseCase.execute()
 
-  return reply.status(201).send(states)
+  return reply.status(200).send(states)
 }
