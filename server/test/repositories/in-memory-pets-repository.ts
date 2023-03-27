@@ -1,11 +1,11 @@
-import { Pet } from '@/application/entities/pet'
+import { PetDTO } from '@/application/repositories/dto/pet-dto'
 import { PetsRepository } from '@/application/repositories/pets-repository'
 import { SearchPetsParams } from '@/application/use-cases/search-pets'
 
 export class InMemoryPetsRepository implements PetsRepository {
-  private pets: Pet[] = []
+  private pets: PetDTO[] = []
 
-  async create(pet: Pet) {
+  async create(pet: PetDTO) {
     this.pets.push(pet)
 
     return pet
@@ -25,7 +25,7 @@ export class InMemoryPetsRepository implements PetsRepository {
     page: number,
     city: string,
     params: SearchPetsParams,
-  ): Promise<Pet[]> {
+  ): Promise<PetDTO[]> {
     const hasParams = Object.entries(params).length > 0
 
     if (hasParams) {

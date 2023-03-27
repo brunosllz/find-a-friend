@@ -1,8 +1,8 @@
-import { Organization } from '@/application/entities/organization'
+import { OrganizationDTO } from '@/application/repositories/dto/organization-dto'
 import { Organization as RawOrganization } from '@prisma/client'
 
 export class PrismaOrganizationMapper {
-  static toPrisma(organization: Organization) {
+  static toPrisma(organization: OrganizationDTO) {
     return {
       id: organization.id,
       name: organization.name,
@@ -15,7 +15,7 @@ export class PrismaOrganizationMapper {
   }
 
   static toDomain(rawOrganization: RawOrganization) {
-    return new Organization({
+    return {
       address: rawOrganization.address,
       cep: rawOrganization.cep,
       email: rawOrganization.email,
@@ -23,6 +23,6 @@ export class PrismaOrganizationMapper {
       password: rawOrganization.password,
       phoneNumber: rawOrganization.phoneNumber,
       createdAt: rawOrganization.created_at,
-    })
+    } as OrganizationDTO
   }
 }

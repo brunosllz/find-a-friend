@@ -1,12 +1,12 @@
-import { Organization } from '@/application/entities/organization'
+import { OrganizationDTO } from '@/application/repositories/dto/organization-dto'
 import { OrganizationsRepository } from '@/application/repositories/organizations-repository'
 
 export class InMemoryOrganizationsRepository
   implements OrganizationsRepository
 {
-  private organizations: Organization[] = []
+  private organizations: OrganizationDTO[] = []
 
-  async create(organization: Organization) {
+  async create(organization: OrganizationDTO) {
     this.organizations.push(organization)
 
     return organization

@@ -1,7 +1,7 @@
-import { Organization } from '../entities/organization'
+import { OrganizationDTO } from './dto/organization-dto'
 
 export interface OrganizationsRepository {
-  create(organization: Organization): Promise<Organization>
-  findByEmail(email: string): Promise<Organization | null>
-  findById(id: string): Promise<Organization | null>
+  create(organization: OrganizationDTO): Promise<OrganizationDTO>
+  findByEmail(email: string): Promise<OrganizationDTO | null>
+  findById(id: string): Promise<OrganizationDTO | null>
 }
