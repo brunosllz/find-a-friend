@@ -22,10 +22,11 @@ Find a friend.
 - [ ] A consulta de cep dever ser realizado através de um serviço externo;
 - [x] A listagem de estados e cidades devem ser realizadas através de um serviço externo;
 - [x] O pet deve deve ser cadastro com energia no minimo 1, no maximo 5;
+- [x] O pet deve deve ser cadastro com a descrição de  minimo 1 e no maximo 300 caracteres;
 
 ## RNFs (Requisitos não funcionais)
 
 - [ ] O usuário deve ser identificado por um JWT (JSON Web Token);
-- [ ] Deve realizado a validação do param recebido na rota de buscar as cidades pelo estado;
+- [ ] Deve ser realizado a validação do parametro recebido na rota de buscar as cidades pelo estado;
 - [x] Os dados da aplicação devem ser persistidos em um banco MySQL;
 - [x] Todas listas de dados precisam estar paginadas com 20 itens por página;
