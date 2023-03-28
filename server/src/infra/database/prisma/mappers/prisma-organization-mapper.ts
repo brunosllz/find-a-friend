@@ -4,7 +4,6 @@ import { Organization as RawOrganization } from '@prisma/client'
 export class PrismaOrganizationMapper {
   static toPrisma(organization: OrganizationDTO) {
     return {
-      id: organization.id,
       name: organization.name,
       email: organization.email,
       password: organization.password,
@@ -16,6 +15,7 @@ export class PrismaOrganizationMapper {
 
   static toDomain(rawOrganization: RawOrganization) {
     return {
+      id: rawOrganization.id,
       address: rawOrganization.address,
       cep: rawOrganization.cep,
       email: rawOrganization.email,
