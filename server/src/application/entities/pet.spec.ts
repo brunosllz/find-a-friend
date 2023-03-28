@@ -15,11 +15,38 @@ describe('Pet', () => {
     )
   })
 
-  it('Should be not able create a pet with energy less than one and more than five', () => {
+  it('Should be not able create a pet with amount energy less than one', () => {
+    expect(() =>
+      MakePet({
+        name: 'princess',
+        energy: 0,
+      }),
+    ).toThrow()
+  })
+
+  it('Should be not able create a pet with amount energy more than five', () => {
     expect(() =>
       MakePet({
         name: 'princess',
         energy: 6,
+      }),
+    ).toThrow()
+  })
+
+  it('Should be not able create a pet with description length less than one', () => {
+    expect(() =>
+      MakePet({
+        name: 'princess',
+        description: '',
+      }),
+    ).toThrow()
+  })
+
+  it('Should be not able create a pet with description length more than three hundred', () => {
+    expect(() =>
+      MakePet({
+        name: 'princess',
+        description: 'a'.repeat(301),
       }),
     ).toThrow()
   })
