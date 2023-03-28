@@ -24,6 +24,10 @@ export class Pet {
     return energy > 0 && energy <= 5
   }
 
+  private validateDescriptionLength(description: string): boolean {
+    return description.length > 0 && description.length <= 300
+  }
+
   constructor(props: PetProps, id?: string) {
     this._id = id ?? randomUUID()
 
@@ -31,6 +35,14 @@ export class Pet {
 
     if (!isEnergyAmountValid) {
       throw new Error('Energy amount is not valid.')
+    }
+
+    const isDescriptionLengthIsValid = this.validateDescriptionLength(
+      props.description,
+    )
+
+    if (!isDescriptionLengthIsValid) {
+      throw new Error('Description length is not valid.')
     }
 
     this.props = {
