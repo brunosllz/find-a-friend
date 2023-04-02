@@ -1,6 +1,13 @@
+'use client'
+
 import { ReactNode } from 'react'
+import { queryClient } from '@/lib/use-query'
+import { QueryClientProvider } from '@tanstack/react-query'
+import { Nunito } from 'next/font/google'
 
 import './globals.css'
+
+const nunito = Nunito({ variable: '--nunito-font', subsets: ['latin'] })
 
 export const metadata = {
   title: 'Create Next App',
@@ -9,8 +16,10 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
+    <QueryClientProvider client={queryClient}>
+      <html lang="en" className={nunito.variable}>
+        <body className="w-full h-screen bg-[#F15156]">{children}</body>
+      </html>
+    </QueryClientProvider>
   )
 }
