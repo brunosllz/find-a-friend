@@ -23,6 +23,7 @@ Find a friend.
 - [x] A listagem de estados e cidades devem ser realizadas através de um serviço externo;
 - [x] O pet deve deve ser cadastro com energia no minimo 1, no maximo 5;
 - [x] O pet deve deve ser cadastro com a descrição de  minimo 1 e no maximo 300 caracteres;
+- [ ] Deve ser possível inserir no maximo 5 fotos para cada pet;
 
 ## RNFs (Requisitos não funcionais)
 
