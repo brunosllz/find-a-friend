@@ -1,5 +1,6 @@
 import { randomUUID } from 'node:crypto'
 import { Replace } from '../helpers/Replace'
+import { PetPhoto } from './pet-photo'
 
 export type PetProps = {
   name: string
@@ -10,7 +11,7 @@ export type PetProps = {
   size: 'small' | 'medium' | 'big'
   independence: 'low' | 'medium' | 'high'
   type: 'dog' | 'cat'
-  photos: Array<{ url: string }>
+  photos: Omit<PetPhoto, 'petId'>[]
   orgId: string
   createdAt?: Date
   [key: string]: any
@@ -29,7 +30,7 @@ export class Pet {
   }
 
   private validateAmountPetPhotos(
-    photos: Array<{ url: string }> | undefined,
+    photos: Omit<PetPhoto, 'petId'>[] | undefined,
   ): boolean {
     if (!photos) {
       return true
@@ -42,7 +43,6 @@ export class Pet {
     this._id = id ?? randomUUID()
 
     const energyAmountIsValid = this.validateAmountEnergy(props.energy)
-
     if (!energyAmountIsValid) {
       throw new Error('Energy amount is not valid.')
     }
@@ -50,13 +50,11 @@ export class Pet {
     const descriptionLengthIsValid = this.validateDescriptionLength(
       props.description,
     )
-
     if (!descriptionLengthIsValid) {
       throw new Error('Description length is not valid.')
     }
 
     const AmountPhotosIsValid = this.validateAmountPetPhotos(props.photos)
-
     if (!AmountPhotosIsValid) {
       throw new Error('Amount photos is not valid.')
     }
@@ -145,11 +143,11 @@ export class Pet {
     this.props.type = type
   }
 
-  public get photos(): Array<{ url: string }> {
+  public get photos(): Omit<PetPhoto, 'petId'>[] {
     return this.props.photos
   }
 
-  public set photos(photos: Array<{ url: string }>) {
+  public set photos(photos: Omit<PetPhoto, 'petId'>[]) {
     this.props.photos = photos
   }
 
