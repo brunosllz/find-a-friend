@@ -11,7 +11,10 @@ export function MakePet(override: Override = {}, id?: string) {
       description: 'description pet example',
       energy: 5,
       independence: 'high',
-      photo: 'https://www.pet-images.com/image.png',
+      photos: [
+        { url: 'http://example.com/photo1.png' },
+        { url: 'http://example.com/photo2.png' },
+      ],
       size: 'big',
       type: 'dog',
       orgId: 'org-id-example',
