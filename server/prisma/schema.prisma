@@ -34,11 +34,22 @@ model Pet {
   size         String
   independence String
   type         String
-  photo        String
   org_id       String
   created_at   DateTime @default(now())
 
   organization Organization @relation(fields: [org_id], references: [id])
+  petPhotos    PetPhotos[]
 
   @@map("pets")
+}
+
+model PetPhotos {
+  id         String   @id @default(uuid())
+  url        String
+  pet_id     String
+  created_at DateTime @default(now())
+
+  pet Pet @relation(fields: [pet_id], references: [id])
+
+  @@map("pet-images")
 }
