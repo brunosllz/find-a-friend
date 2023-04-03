@@ -10,7 +10,7 @@ export type PetProps = {
   size: 'small' | 'medium' | 'big'
   independence: 'low' | 'medium' | 'high'
   type: 'dog' | 'cat'
-  photo: string
+  photos: Array<{ url: string }>
   orgId: string
   createdAt?: Date
   [key: string]: any
@@ -28,26 +28,43 @@ export class Pet {
     return description.length > 0 && description.length <= 300
   }
 
+  private validateAmountPetPhotos(
+    photos: Array<{ url: string }> | undefined,
+  ): boolean {
+    if (!photos) {
+      return true
+    }
+
+    return photos.length <= 5
+  }
+
   constructor(props: PetProps, id?: string) {
     this._id = id ?? randomUUID()
 
-    const isEnergyAmountValid = this.validateAmountEnergy(props.energy)
+    const energyAmountIsValid = this.validateAmountEnergy(props.energy)
 
-    if (!isEnergyAmountValid) {
+    if (!energyAmountIsValid) {
       throw new Error('Energy amount is not valid.')
     }
 
-    const isDescriptionLengthIsValid = this.validateDescriptionLength(
+    const descriptionLengthIsValid = this.validateDescriptionLength(
       props.description,
     )
 
-    if (!isDescriptionLengthIsValid) {
+    if (!descriptionLengthIsValid) {
       throw new Error('Description length is not valid.')
+    }
+
+    const AmountPhotosIsValid = this.validateAmountPetPhotos(props.photos)
+
+    if (!AmountPhotosIsValid) {
+      throw new Error('Amount photos is not valid.')
     }
 
     this.props = {
       ...props,
       orgId: props.orgId ?? randomUUID(),
+      photos: props.photos ?? null,
       createdAt: props.createdAt ?? new Date(),
     }
   }
@@ -128,12 +145,12 @@ export class Pet {
     this.props.type = type
   }
 
-  public get photo() {
-    return this.props.photo
+  public get photos(): Array<{ url: string }> {
+    return this.props.photos
   }
 
-  public set photo(photo: string) {
-    this.props.photo = photo
+  public set photos(photos: Array<{ url: string }>) {
+    this.props.photos = photos
   }
 
   public get orgId() {
