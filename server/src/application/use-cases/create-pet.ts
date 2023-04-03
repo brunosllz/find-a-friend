@@ -1,5 +1,6 @@
 import { Pet } from '../entities/pet'
 import { OrganizationsRepository } from '../repositories/organizations-repository'
+import { PetsPhotosRepository } from '../repositories/pets-photos-repository'
 import { PetsRepository } from '../repositories/pets-repository'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
@@ -12,7 +13,7 @@ type CreatePetUseCaseRequest = {
   size: 'small' | 'medium' | 'big'
   independence: 'low' | 'medium' | 'high'
   type: 'dog' | 'cat'
-  photo: string
+  photos: Array<{ url: string }>
   orgId: string
 }
 
@@ -22,8 +23,9 @@ type CreatePetUseCaseResponse = {
 
 export class CreatePetUseCase {
   constructor(
-    private petsRepository: PetsRepository,
-    private organizationsRepository: OrganizationsRepository,
+    private readonly petsRepository: PetsRepository,
+    private readonly petPhotosRepository: PetsPhotosRepository,
+    private readonly organizationsRepository: OrganizationsRepository,
   ) {}
 
   async execute({
@@ -35,7 +37,7 @@ export class CreatePetUseCase {
     size,
     independence,
     type,
-    photo,
+    photos,
     orgId,
   }: CreatePetUseCaseRequest): Promise<CreatePetUseCaseResponse> {
     const orgExists = await this.organizationsRepository.findById(orgId)
@@ -53,11 +55,20 @@ export class CreatePetUseCase {
       size,
       independence,
       type,
-      photo,
+      photos,
       orgId,
     })
 
     const pet = await this.petsRepository.create(createdPet)
+
+    const petPhotos = createdPet.photos.map((photo) => {
+      return {
+        ...photo,
+        petId: pet.id,
+      }
+    })
+
+    await this.petPhotosRepository.save(petPhotos)
 
     return { pet }
   }
