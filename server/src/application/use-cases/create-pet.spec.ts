@@ -4,16 +4,24 @@ import { InMemoryPetsRepository } from 'test/repositories/in-memory-pets-reposit
 import { describe, expect, it, beforeEach } from 'vitest'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 import { CreatePetUseCase } from './create-pet'
+import { InMemoryPetsPhotosRepository } from 'test/repositories/in-memory-pets-photos-repository'
 
 describe('Create pet use case', () => {
   let petsRepository: InMemoryPetsRepository
   let organizationsRepository: InMemoryOrganizationsRepository
+  let petsPhotosRepository: InMemoryPetsPhotosRepository
   let sut: CreatePetUseCase
 
   beforeEach(() => {
     petsRepository = new InMemoryPetsRepository()
     organizationsRepository = new InMemoryOrganizationsRepository()
-    sut = new CreatePetUseCase(petsRepository, organizationsRepository)
+    petsPhotosRepository = new InMemoryPetsPhotosRepository()
+
+    sut = new CreatePetUseCase(
+      petsRepository,
+      petsPhotosRepository,
+      organizationsRepository,
+    )
   })
 
   it('Should be able register a pet with org id valid', async () => {
@@ -30,7 +38,7 @@ describe('Create pet use case', () => {
       description: 'Is a pet',
       energy: 5,
       independence: 'high',
-      photo: 'https://www.pet-images.com/image.png',
+      photos: [{ url: 'https://www.pet-images.com/image.png' }],
       size: 'big',
       type: 'dog',
       orgId: organization.id,
@@ -48,7 +56,7 @@ describe('Create pet use case', () => {
         description: 'Is a pet',
         energy: 5,
         independence: 'high',
-        photo: 'https://www.pet-images.com/image.png',
+        photos: [{ url: 'https://www.pet-images.com/image.png' }],
         size: 'big',
         type: 'dog',
         orgId: 'org-id',
