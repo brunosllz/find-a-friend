@@ -59,4 +59,20 @@ describe('Pet', () => {
 
     expect(pet.photos).toBeNull()
   })
+
+  it('Should be not create a pet with amount photos more than five', () => {
+    expect(() =>
+      MakePet({
+        name: 'princess',
+        photos: [
+          { url: 'http://example.com/photo1.png' },
+          { url: 'http://example.com/photo2.png' },
+          { url: 'http://example.com/photo2.png' },
+          { url: 'http://example.com/photo2.png' },
+          { url: 'http://example.com/photo2.png' },
+          { url: 'http://example.com/photo2.png' },
+        ],
+      }),
+    ).toThrow()
+  })
 })
