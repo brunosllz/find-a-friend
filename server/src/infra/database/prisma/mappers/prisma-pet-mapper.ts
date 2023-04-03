@@ -18,7 +18,7 @@ export class PrismaPetMapper {
 
   static toDomain(
     rawPet: RawPet & {
-      petPhotos: PetPhotos[]
+      petPhotos?: PetPhotos[]
     },
   ) {
     return {
