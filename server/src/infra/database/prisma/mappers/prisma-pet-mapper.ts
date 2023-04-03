@@ -1,5 +1,5 @@
 import { PetDTO } from '@/application/repositories/dto/pet-dto'
-import { Pet as RawPet } from '@prisma/client'
+import { PetPhotos, Pet as RawPet } from '@prisma/client'
 
 export class PrismaPetMapper {
   static toPrisma(pet: PetDTO) {
@@ -12,12 +12,15 @@ export class PrismaPetMapper {
       size: pet.size,
       independence: pet.independence,
       type: pet.type,
-      photo: pet.photo,
       org_id: pet.orgId,
     }
   }
 
-  static toDomain(rawPet: RawPet) {
+  static toDomain(
+    rawPet: RawPet & {
+      petPhotos: PetPhotos[]
+    },
+  ) {
     return {
       id: rawPet.id,
       name: rawPet.name,
@@ -28,8 +31,8 @@ export class PrismaPetMapper {
       size: rawPet.size,
       independence: rawPet.independence,
       type: rawPet.type,
-      photo: rawPet.photo,
+      photos: rawPet.petPhotos,
       orgId: rawPet.org_id,
-    } as PetDTO
+    } as unknown as PetDTO
   }
 }
