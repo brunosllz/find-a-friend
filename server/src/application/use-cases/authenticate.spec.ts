@@ -29,7 +29,7 @@ describe('Authenticate use case', () => {
     expect(organization.id).toEqual(expect.any(String))
   })
 
-  it('Should be not able to authenticate with wrong email', async () => {
+  it('Should be not able to authenticate with non exists email', async () => {
     await expect(() =>
       sut.execute({
         email: 'johndoe@email.com',
@@ -39,11 +39,16 @@ describe('Authenticate use case', () => {
   })
 
   it('Should be not able to authenticate with wrong password', async () => {
-    organizationsRepository.create(MakeOrganization())
+    organizationsRepository.create(
+      MakeOrganization({
+        email: 'org@email.com',
+        password: await hash('Org1423!', 8),
+      }),
+    )
 
     await expect(() =>
       sut.execute({
-        email: 'organization@email.com',
+        email: 'org@email.com',
         password: '12345678',
       }),
     ).rejects.toBeInstanceOf(InvalidCredentialsError)
