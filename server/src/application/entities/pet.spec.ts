@@ -50,4 +50,13 @@ describe('Pet', () => {
       }),
     ).toThrow()
   })
+
+  it('Should be create a pet without photos', () => {
+    const pet = MakePet({
+      name: 'princess',
+      photos: undefined,
+    })
+
+    expect(pet.photos).toBeNull()
+  })
 })
