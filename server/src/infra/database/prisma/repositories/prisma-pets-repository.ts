@@ -39,6 +39,9 @@ export class PrismaPetsRepository implements PetsRepository {
         city,
         ...queryParams,
       },
+      include: {
+        petPhotos: true,
+      },
       skip: (page - 1) * 20,
       take: 20,
     })
