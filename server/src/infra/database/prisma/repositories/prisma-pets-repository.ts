@@ -40,7 +40,9 @@ export class PrismaPetsRepository implements PetsRepository {
         ...queryParams,
       },
       include: {
-        petPhotos: true,
+        petPhotos: {
+          take: 1,
+        },
       },
       skip: (page - 1) * 20,
       take: 20,
