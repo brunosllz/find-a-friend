@@ -7,7 +7,7 @@ export async function SearchPetsController(
   reply: FastifyReply,
 ) {
   const searchPetsRouteParams = z.object({
-    city: z.string(),
+    city: z.string().toLowerCase(),
   })
 
   const searchPetsQueryParamsSchema = z.object({
