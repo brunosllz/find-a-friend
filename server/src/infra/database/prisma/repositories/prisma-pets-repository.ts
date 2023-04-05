@@ -20,6 +20,9 @@ export class PrismaPetsRepository implements PetsRepository {
       where: {
         id,
       },
+      include: {
+        petPhotos: true,
+      },
     })
 
     if (!rawPet) {
