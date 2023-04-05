@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { SearchPetsForRegionForm } from '@/components/SearchPetsForRegionForm'
 
-import logo from '../assets/logo.svg'
+import logo from '../assets/logo-primary.svg'
 import dogsImage from '../assets/dogs-image.svg'
 
 export default async function Home() {
@@ -17,6 +17,7 @@ export default async function Home() {
         return {
           id: item.id,
           value: item.acronym,
+          placeholder: item.acronym,
         }
       }),
     )
@@ -36,6 +37,7 @@ export default async function Home() {
         return {
           id: item.id,
           value: item.name,
+          placeholder: item.name,
         }
       }),
     )
