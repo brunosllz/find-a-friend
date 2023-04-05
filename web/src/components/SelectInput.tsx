@@ -1,5 +1,7 @@
 'use client'
 
+// TODO: Refactor this component, apply composition pattern
+
 import { forwardRef } from 'react'
 import { useController, Control, Path, FieldValues } from 'react-hook-form'
 import clsx from 'clsx'
@@ -9,8 +11,9 @@ import * as Select from '@radix-ui/react-select'
 import { CaretDown, CaretUp, Check, CircleNotch } from 'phosphor-react'
 
 type Option = {
-  id: string
-  value: string
+  id?: string
+  value: string | number
+  placeholder: string
 }
 
 interface SelectInputProps<T extends FieldValues = FieldValues>
@@ -63,15 +66,15 @@ export const SelectInput = forwardRef<
             <Select.Group>
               {options.map((item) => (
                 <Select.Item
-                  key={item.id}
-                  value={item.value}
+                  key={item.id ?? item.value}
+                  value={String(item.value)}
                   className={clsx(
-                    'relative flex items-center px-7 py-2 rounded-md text-gray-700 focus:bg-gray-100',
+                    'relative flex items-center px-7 py-2 rounded-md text-gray-700 focus:bg-gray-200',
                     'radix-disabled:opacity-50',
                     'focus:outline-none select-none',
                   )}
                 >
-                  <Select.ItemText>{item.value}</Select.ItemText>
+                  <Select.ItemText>{item.placeholder}</Select.ItemText>
                   <Select.ItemIndicator className="absolute left-2 inline-flex items-center">
                     <Check weight="bold" />
                   </Select.ItemIndicator>
