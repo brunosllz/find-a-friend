@@ -1,0 +1,16 @@
+{
+  "name": "find-a-friend",
+  "version": "1.0.0",
+  "private": "true",
+  "author": "Bruno Silveira Luiz",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brunosllz/find-a-friend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/brunosllz/find-a-friend/issues"
+  },
+  "homepage": "https://github.com/brunosllz/find-a-friend#readme",
+  "workspaces":["apps/*"]
+}
