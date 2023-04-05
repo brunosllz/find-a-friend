@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "private": true,
   "scripts": {
     "dev:start": "tsx watch ./src/infra/server.ts",
     "lint": "eslint \"{src,test,prisma}/**/*.ts\" --fix",
