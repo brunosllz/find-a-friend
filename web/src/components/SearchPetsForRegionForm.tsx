@@ -12,6 +12,7 @@ import { MagnifyingGlass } from 'phosphor-react'
 interface BaseValue {
   id: string
   value: string
+  placeholder: string
 }
 
 interface SearchPetsForRegionFormProps {
@@ -35,6 +36,7 @@ export function SearchPetsForRegionForm({
 
   const router = useRouter()
 
+  // TODO: Change this query in custom hook
   async function getCities() {
     const { data } = await api.get<Array<{ id: string; name: string }>>(
       `/location/${watch('state')}/cities`,
@@ -44,18 +46,21 @@ export function SearchPetsForRegionForm({
       return {
         id: item.id,
         value: item.name,
+        placeholder: item.name,
       }
     })
   }
 
-  const { data, isFetchedAfterMount } = useQuery<
-    Array<{ id: string; value: string }>
-  >(['cities', watch('state')], getCities, {
-    initialData: cities,
-    onSuccess(data) {
-      setValue('city', data[0].value)
+  const { data, isFetchedAfterMount } = useQuery<Array<BaseValue>>(
+    ['cities', watch('state')],
+    getCities,
+    {
+      initialData: cities,
+      onSuccess(data) {
+        setValue('city', data[0].value)
+      },
     },
-  })
+  )
 
   function handleSearchPetsForRegion(data: any) {
     router.push(`dashboard/${data.city}`)
@@ -91,7 +96,7 @@ export function SearchPetsForRegionForm({
       <div className="min-w-14">
         <button
           type="submit"
-          className="h-14 w-14 flex items-center justify-center bg-yellow-500 rounded-lg text-gray-900"
+          className="h-14 w-14 flex items-center justify-center bg-yellow-400 hover:bg-yellow-500 transition-colors rounded-lg text-gray-900"
         >
           <MagnifyingGlass size={24} weight="bold" />
         </button>
