@@ -4,6 +4,9 @@ const nextConfig = {
     appDir: true,
     optimizeCss: true,
   },
+  images: {
+    domains: ['www.github.com'],
+  },
 }
 
 module.exports = nextConfig
