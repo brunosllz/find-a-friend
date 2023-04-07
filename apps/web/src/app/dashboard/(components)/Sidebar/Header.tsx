@@ -12,7 +12,7 @@ export function Header() {
   const { register, control } = useForm()
 
   return (
-    <header className="bg-[#E44449] w-full flex flex-col gap-6 pl-14 pr-10 pt-20 pb-6">
+    <header className="bg-[#E44449] w-full flex flex-col gap-6 pl-14 pr-10 pt-20 pb-6 h-[230px]">
       <Image src={logo} width={46} height={46} alt="find a friend" />
 
       <div className="flex gap-3">
