@@ -21,22 +21,22 @@ export class InMemoryPetsRepository implements PetsRepository {
     return pet
   }
 
-  async findMany(
-    page: number,
-    city: string,
-    params: SearchPetsParams,
-  ): Promise<PetDTO[]> {
+  async findMany(page: number, city: string, params: SearchPetsParams) {
     const hasParams = Object.entries(params).length > 0
 
     if (hasParams) {
-      return this.pets
+      const pets = this.pets
         .filter((pet) => pet.city.toLowerCase() === city.toLowerCase())
         .filter((pet) => pet.containsProps(params))
         .slice((page - 1) * 20, page * 20)
+
+      return { pets, count: pets.length }
     }
 
-    return this.pets
+    const pets = this.pets
       .filter((pet) => pet.city === city)
       .slice((page - 1) * 20, page * 20)
+
+    return { pets, count: pets.length }
   }
 }
