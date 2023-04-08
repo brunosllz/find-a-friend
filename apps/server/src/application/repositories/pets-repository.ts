@@ -10,5 +10,5 @@ export interface PetsRepository {
     page: number,
     city: string,
     queryParams?: QueryParams,
-  ): Promise<PetDTO[]>
+  ): Promise<{ pets: PetDTO[]; count: number }>
 }
