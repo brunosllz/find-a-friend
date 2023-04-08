@@ -4,8 +4,7 @@ export interface Pet {
   id: string
   name: string
   energy: number
-  photos: {
-    id: string
+  photo: {
     url: string
   }[]
 }
@@ -16,7 +15,9 @@ interface PetGalleryProps {
 
 export async function PetGallery({ city }: PetGalleryProps) {
   const response = await fetch(`http://localhost:3333/pets/${city}`)
-  const pets: Pet[] = await response.json().then((data) => data)
+  const { pets }: { pets: Pet[]; count: number } = await response
+    .json()
+    .then((data) => data)
 
   return (
     <div className="grid grid-cols-3 gap-8">
