@@ -30,7 +30,7 @@ describe('Search pets use case', () => {
       }),
     )
 
-    const { pets } = await sut.execute({
+    const { pets, count } = await sut.execute({
       page: 1,
       city: 'Bento Gonçalves',
     })
@@ -41,6 +41,7 @@ describe('Search pets use case', () => {
         expect.objectContaining({ orgId: organization.id }),
       ]),
     )
+    expect(count).toEqual(pets.length)
   })
 
   it('Should be able to paginated fetch pets', async () => {
@@ -56,7 +57,10 @@ describe('Search pets use case', () => {
       )
     }
 
-    const { pets } = await sut.execute({ page: 2, city: 'Bento Gonçalves' })
+    const { pets, count } = await sut.execute({
+      page: 2,
+      city: 'Bento Gonçalves',
+    })
 
     expect(pets).toHaveLength(5)
     expect(pets).toEqual(
@@ -71,6 +75,7 @@ describe('Search pets use case', () => {
         }),
       ]),
     )
+    expect(count).toEqual(pets.length)
   })
 
   it('Should be able apply a filters on fetch pets', async () => {
@@ -94,7 +99,7 @@ describe('Search pets use case', () => {
       }),
     )
 
-    const { pets } = await sut.execute({
+    const { pets, count } = await sut.execute({
       page: 1,
       city: 'Bento Gonçalves',
       params: {
@@ -107,5 +112,6 @@ describe('Search pets use case', () => {
     expect(pets).toEqual(
       expect.arrayContaining([expect.objectContaining({ age: 'adolescent' })]),
     )
+    expect(count).toEqual(pets.length)
   })
 })
