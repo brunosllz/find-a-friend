@@ -17,6 +17,7 @@ type SearchPetsUseCaseRequest = {
 
 type SearchPetsUseCaseResponse = {
   pets: Pet[]
+  count: number
 }
 
 export class SearchPetsUseCase {
@@ -27,10 +28,10 @@ export class SearchPetsUseCase {
     city,
     params,
   }: SearchPetsUseCaseRequest): Promise<SearchPetsUseCaseResponse> {
-    const pets = await this.petsRepository.findMany(page, city, {
+    const { pets, count } = await this.petsRepository.findMany(page, city, {
       ...params,
     })
 
-    return { pets }
+    return { pets, count }
   }
 }
