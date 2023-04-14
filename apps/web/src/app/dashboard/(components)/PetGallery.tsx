@@ -20,10 +20,10 @@ export async function PetGallery({ city }: PetGalleryProps) {
     .then((data) => data)
 
   return (
-    <div className="grid grid-cols-3 gap-8">
+    <ul className="grid grid-cols-3 gap-8">
       {pets.map((pet) => {
         return <PetCard key={pet.id} data={pet} />
       })}
-    </div>
+    </ul>
   )
 }
