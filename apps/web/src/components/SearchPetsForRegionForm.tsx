@@ -62,8 +62,9 @@ export function SearchPetsForRegionForm({
     },
   )
 
+  // TODO: added type and validation of data receive on form
   function handleSearchPetsForRegion(data: any) {
-    router.push(`dashboard/${data.city}`)
+    router.push(`/dashboard/${data.city}/pets`)
   }
 
   return (
