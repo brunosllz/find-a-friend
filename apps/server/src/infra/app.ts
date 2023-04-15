@@ -6,6 +6,8 @@ import { appRoutes } from './http/routes/app-routes'
 import { organizationsRoutes } from './http/routes/organizations-routes'
 import { petsRoutes } from './http/routes/pets-routes'
 
+import './lib/dayjs'
+
 export const app = fastify()
 
 app.register(cors)
