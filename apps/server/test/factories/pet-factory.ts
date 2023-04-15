@@ -1,6 +1,10 @@
 import { Pet, PetProps } from '@/application/entities/pet'
+import { PetPhoto } from '@/application/entities/pet-photo'
+import { Replace } from '@/application/helpers/Replace'
 
-type Override = Partial<PetProps>
+type Override = Partial<
+  Replace<PetProps, { photos: Omit<PetPhoto, 'petId' | 'id'>[] | null }>
+>
 
 export function MakePet(override: Override = {}, id?: string) {
   return new Pet(
@@ -17,7 +21,6 @@ export function MakePet(override: Override = {}, id?: string) {
       ],
       size: 'big',
       type: 'dog',
-      orgId: 'org-id-example',
       ...override,
     },
     id,
