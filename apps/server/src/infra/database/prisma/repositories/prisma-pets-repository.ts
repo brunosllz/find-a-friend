@@ -51,6 +51,9 @@ export class PrismaPetsRepository implements PetsRepository {
       take: 20,
     })
 
-    return rawPets.map(PrismaPetMapper.toDomain)
+    return {
+      pets: rawPets.map(PrismaPetMapper.toDomain),
+      count: rawPets.length,
+    }
   }
 }
