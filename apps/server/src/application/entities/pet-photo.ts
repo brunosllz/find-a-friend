@@ -1,1 +1,1 @@
-export type PetPhoto = { petId: string; url: string }
+export type PetPhoto = { id: string; petId: string; url: string }
