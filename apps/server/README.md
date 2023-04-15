@@ -31,3 +31,5 @@ Find a friend.
 - [ ] Deve ser realizado a validação do parametro recebido na rota de buscar as cidades pelo estado;
 - [x] Os dados da aplicação devem ser persistidos em um banco MySQL;
 - [x] Todas listas de dados precisam estar paginadas com 20 itens por página;
+- [ ] Permitir de seja possível escolher a foto de thumb do pet;
+- [ ] Tratar os retornos de dados do tipo data para UTC -3
