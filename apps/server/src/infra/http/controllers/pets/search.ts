@@ -1,6 +1,7 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 import { MakeSearchPetsUseCase } from '../factories/make-search-pets-use-case'
+import { SearchPetsViewModel } from '../../view-models/pets/search-view-model'
 
 export async function SearchPetsController(
   request: FastifyRequest,
@@ -28,7 +29,7 @@ export async function SearchPetsController(
 
   const searchUseCase = MakeSearchPetsUseCase()
 
-  const { pets } = await searchUseCase.execute({
+  const { pets, count } = await searchUseCase.execute({
     city,
     page,
     params: {
@@ -36,5 +37,7 @@ export async function SearchPetsController(
     },
   })
 
-  return reply.status(200).send(pets)
+  return reply
+    .status(200)
+    .send({ pets: SearchPetsViewModel.toHTTP(pets), count })
 }
