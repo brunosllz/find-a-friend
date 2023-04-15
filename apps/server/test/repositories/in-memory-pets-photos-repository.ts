@@ -7,4 +7,10 @@ export class InMemoryPetsPhotosRepository implements PetsPhotosRepository {
   async save(petPhotos: PetPhotoDTO[]) {
     this.petsPhotos.push(...petPhotos)
   }
+
+  async findManyById(id: string) {
+    const photos = this.petsPhotos.filter((photos) => photos.petId === id)
+
+    return photos
+  }
 }
