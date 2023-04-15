@@ -13,7 +13,7 @@ type CreatePetUseCaseRequest = {
   size: 'small' | 'medium' | 'big'
   independence: 'low' | 'medium' | 'high'
   type: 'dog' | 'cat'
-  photos: Array<{ url: string }>
+  photos?: Array<{ url: string }>
   orgId: string
 }
 
@@ -61,14 +61,16 @@ export class CreatePetUseCase {
 
     const pet = await this.petsRepository.create(createdPet)
 
-    const petPhotos = createdPet.photos.map((photo) => {
-      return {
-        ...photo,
-        petId: pet.id,
-      }
-    })
+    if (createdPet.photos) {
+      const petPhotos = createdPet.photos.map((photo) => {
+        return {
+          ...photo,
+          petId: pet.id,
+        }
+      })
 
-    await this.petPhotosRepository.save(petPhotos)
+      await this.petPhotosRepository.save(petPhotos)
+    }
 
     return { pet }
   }
