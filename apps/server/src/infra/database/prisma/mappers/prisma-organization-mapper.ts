@@ -1,8 +1,10 @@
 import { OrganizationDTO } from '@/application/repositories/dto/organization-dto'
-import { Organization as RawOrganization } from '@prisma/client'
+import { Prisma, Organization as RawOrganization } from '@prisma/client'
 
 export class PrismaOrganizationMapper {
-  static toPrisma(organization: OrganizationDTO) {
+  static toPrisma(
+    organization: OrganizationDTO,
+  ): Prisma.OrganizationUncheckedCreateInput {
     return {
       name: organization.name,
       email: organization.email,
