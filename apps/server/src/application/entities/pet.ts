@@ -11,14 +11,13 @@ export type PetProps = {
   size: 'small' | 'medium' | 'big'
   independence: 'low' | 'medium' | 'high'
   type: 'dog' | 'cat'
-  photos: Omit<PetPhoto, 'petId'>[]
+  photos: PetPhoto[] | null
   orgId: string
-  createdAt?: Date
-  [key: string]: any
+  createdAt: Date
 }
 
 export class Pet {
-  private props: PetProps
+  private props: Replace<PetProps, { [key: string]: any }>
   private _id: string
 
   private validateAmountEnergy(energy: number): boolean {
@@ -30,7 +29,7 @@ export class Pet {
   }
 
   private validateAmountPetPhotos(
-    photos: Omit<PetPhoto, 'petId'>[] | undefined,
+    photos: Omit<PetPhoto, 'petId' | 'id'>[] | undefined,
   ): boolean {
     if (!photos) {
       return true
@@ -39,7 +38,17 @@ export class Pet {
     return photos.length <= 5
   }
 
-  constructor(props: PetProps, id?: string) {
+  constructor(
+    props: Replace<
+      PetProps,
+      {
+        createdAt?: Date
+        orgId?: string
+        photos?: Omit<PetPhoto, 'petId' | 'id'>[] | null
+      }
+    >,
+    id?: string,
+  ) {
     this._id = id ?? randomUUID()
 
     const energyAmountIsValid = this.validateAmountEnergy(props.energy)
@@ -54,9 +63,12 @@ export class Pet {
       throw new Error('Description length is not valid.')
     }
 
-    const AmountPhotosIsValid = this.validateAmountPetPhotos(props.photos)
-    if (!AmountPhotosIsValid) {
-      throw new Error('Amount photos is not valid.')
+    if (props.photos) {
+      const AmountPhotosIsValid = this.validateAmountPetPhotos(props.photos)
+
+      if (!AmountPhotosIsValid) {
+        throw new Error('Amount photos is not valid.')
+      }
     }
 
     this.props = {
@@ -143,11 +155,11 @@ export class Pet {
     this.props.type = type
   }
 
-  public get photos(): Omit<PetPhoto, 'petId'>[] {
+  public get photos(): Omit<PetPhoto, 'petId'>[] | null {
     return this.props.photos
   }
 
-  public set photos(photos: Omit<PetPhoto, 'petId'>[]) {
+  public set photos(photos: Omit<PetPhoto, 'petId'>[] | null) {
     this.props.photos = photos
   }
 
