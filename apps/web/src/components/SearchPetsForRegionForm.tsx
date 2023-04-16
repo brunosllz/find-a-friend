@@ -97,7 +97,7 @@ export function SearchPetsForRegionForm({
       <div className="min-w-14">
         <button
           type="submit"
-          className="h-14 w-14 flex items-center justify-center bg-yellow-400 hover:bg-yellow-500 transition-colors rounded-lg text-gray-900"
+          className="h-14 w-14 flex items-center justify-center bg-yellow-400 hover:bg-yellow-500 transition-colors rounded-2xl text-[#0D3B66]"
         >
           <MagnifyingGlass size={24} weight="bold" />
         </button>
