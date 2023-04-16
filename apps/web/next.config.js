@@ -5,7 +5,7 @@ const nextConfig = {
     optimizeCss: true,
   },
   images: {
-    domains: ['www.github.com'],
+    domains: ['www.github.com', 'localhost'],
   },
 }
 
