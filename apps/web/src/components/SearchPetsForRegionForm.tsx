@@ -9,15 +9,15 @@ import { SelectInput } from './SelectInput'
 
 import { MagnifyingGlass } from 'phosphor-react'
 
-interface BaseValue {
+export interface BaseLocationValue {
   id: string
   value: string
   placeholder: string
 }
 
 interface SearchPetsForRegionFormProps {
-  states: BaseValue[]
-  cities: BaseValue[]
+  states: BaseLocationValue[]
+  cities: BaseLocationValue[]
 }
 
 export function SearchPetsForRegionForm({
@@ -35,6 +35,7 @@ export function SearchPetsForRegionForm({
   })
 
   const router = useRouter()
+  const state = watch('state')
 
   // TODO: Change this query in custom hook
   async function getCities() {
@@ -51,8 +52,8 @@ export function SearchPetsForRegionForm({
     })
   }
 
-  const { data, isFetchedAfterMount } = useQuery<Array<BaseValue>>(
-    ['cities', watch('state')],
+  const { data, isFetchedAfterMount } = useQuery<Array<BaseLocationValue>>(
+    ['cities', state],
     getCities,
     {
       initialData: cities,
@@ -64,7 +65,7 @@ export function SearchPetsForRegionForm({
 
   // TODO: added type and validation of data receive on form
   function handleSearchPetsForRegion(data: any) {
-    router.push(`/dashboard/${data.city}/pets`)
+    router.push(`/dashboard/${data.city}/pets?state=${state}`)
   }
 
   return (
