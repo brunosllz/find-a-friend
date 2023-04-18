@@ -58,7 +58,8 @@ export const SelectInput = forwardRef<
             </>
           )}
         </Select.Trigger>
-        <Select.Content>
+
+        <Select.Content className="z-10">
           <Select.ScrollUpButton className="flex items-center justify-center text-gray-700">
             <CaretUp />
           </Select.ScrollUpButton>
