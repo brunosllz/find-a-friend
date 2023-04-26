@@ -1,6 +1,7 @@
 export type City = {
   id: string
   name: string
+  slug: string
 }
 
 type FetchCities = (acronymState: string) => Promise<City[]>
@@ -17,8 +18,8 @@ export class FetchCitiesByStateUseCase {
   async execute({
     acronymState,
   }: FetchCitiesByStateUseCaseRequest): Promise<FetchCitiesByStateUseCaseResponse> {
-    const states = await this.FetchCities(acronymState)
+    const cities = await this.FetchCities(acronymState)
 
-    return states
+    return cities
   }
 }

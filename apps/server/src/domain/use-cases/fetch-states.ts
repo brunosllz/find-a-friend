@@ -1,7 +1,10 @@
+import { Slug } from '../entities/value-objects/slug'
+
 export type State = {
   id: string
   name: string
   acronym: string
+  slug: string
 }
 
 type FetchStates = () => Promise<State[]>
@@ -14,6 +17,13 @@ export class FetchStatesUseCase {
   async execute(): Promise<FetchStatesUseCaseResponse> {
     const states = await this.fetchStates()
 
-    return states
+    const statesFormatted = states.map((state) => {
+      return {
+        ...state,
+        slug: Slug.createFromText(state.acronym).value,
+      }
+    })
+
+    return statesFormatted
   }
 }
