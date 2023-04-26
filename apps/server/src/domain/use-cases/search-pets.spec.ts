@@ -78,7 +78,7 @@ describe('Search pets use case', () => {
     expect(count).toEqual(pets.length)
   })
 
-  it('Should be able apply a filters on fetch pets', async () => {
+  it('Should be able apply some filters on fetch pets', async () => {
     const organization = MakeOrganization()
 
     await petsRepository.create(

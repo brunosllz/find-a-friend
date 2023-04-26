@@ -19,16 +19,8 @@ describe('Fetch pet photos use case', () => {
 
   it('Should be able fetch all photo of pet', async () => {
     const { photos: petPhotos, id } = await petsRepository.create(MakePet())
-
     if (petPhotos) {
-      await petsPhotosRepository.save(
-        petPhotos.map((photo) => {
-          return {
-            ...photo,
-            petId: id,
-          }
-        }),
-      )
+      await petsPhotosRepository.save(petPhotos.value, id)
     }
 
     const { photos } = await sut.execute({

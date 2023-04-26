@@ -46,7 +46,7 @@ export class CreatePetUseCase {
       throw new ResourceNotFoundError()
     }
 
-    const createdPet = new Pet({
+    const createdPet = Pet.create({
       name,
       description,
       city,
@@ -55,21 +55,17 @@ export class CreatePetUseCase {
       size,
       independence,
       type,
-      photos,
+      photos: photos ?? null,
       orgId,
     })
 
     const pet = await this.petsRepository.create(createdPet)
 
     if (createdPet.photos) {
-      const petPhotos = createdPet.photos.map((photo) => {
-        return {
-          ...photo,
-          petId: pet.id,
-        }
-      })
-
-      await this.petPhotosRepository.save(petPhotos)
+      await this.petPhotosRepository.save(
+        createdPet.photos.value,
+        createdPet.id,
+      )
     }
 
     return { pet }

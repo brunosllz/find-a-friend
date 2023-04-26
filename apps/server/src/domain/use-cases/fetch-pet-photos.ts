@@ -1,14 +1,13 @@
 import { PetsRepository } from '../repositories/pets-repository'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 import { PetsPhotosRepository } from '../repositories/pets-photos-repository'
-import { PetPhoto } from '../entities/pet-photo'
 
 type FetchPetPhotosUseCaseRequest = {
   id: string
 }
 
 type FetchPetPhotosUseCaseResponse = {
-  photos: PetPhoto[]
+  photos: Array<{ id: string; url: string }>
 }
 
 export class FetchPetPhotosUseCase {
