@@ -5,6 +5,7 @@ import { PasswordNotCorrectly } from './errors/password-not-correctly-error'
 describe('Organization', () => {
   it('Should be able create an organization', () => {
     const organization = MakeOrganization()
+
     expect(organization).toBeTruthy()
     expect(organization).toEqual(
       expect.objectContaining({
@@ -19,5 +20,13 @@ describe('Organization', () => {
         password: '123456',
       }),
     ).toThrow(PasswordNotCorrectly)
+  })
+
+  it('Should be not able create an organization with a invalid phone number', () => {
+    expect(() =>
+      MakeOrganization({
+        phoneNumber: 'DD999999999',
+      }),
+    ).toThrow(Error)
   })
 })
