@@ -23,7 +23,7 @@ async function run() {
         email: 'adote_pets@email.com',
         name: 'adote pets',
         password,
-        phoneNumber: '51999999999',
+        phoneNumber: '51 99999.9999',
       },
     }),
     client.organization.create({
@@ -34,7 +34,7 @@ async function run() {
         email: 'catinhos@email.com',
         name: 'catinhos',
         password,
-        phoneNumber: '51999999999',
+        phoneNumber: '51 99999.9999',
       },
     }),
   ])
