@@ -1,96 +1,67 @@
-import { randomUUID } from 'node:crypto'
-import { Replace } from '../helpers/Replace'
-import { PasswordNotCorrectly } from './errors/password-not-correctly-error'
+import { Entity } from '@/core/entities/entity'
+import { Address } from './value-objects/address'
+import { CreateOrganizationInput } from './types/organization'
+import { Password } from './value-objects/password'
+import { PhoneNumber } from './value-objects/phone-number'
 
 export type OrganizationProps = {
   name: string
   email: string
-  password: string
-  address: string
-  cep: string
-  phoneNumber: string
+  password: Password
+  address: Address
+  cep: string // TODO: create a value object for validate and normalize a cep number
+  phoneNumber: PhoneNumber
+  location: {
+    lat: string
+    lng: string
+  }
   createdAt: Date
 }
 
-export class Organization {
-  private props: OrganizationProps
-  private _id: string
+export class Organization extends Entity<OrganizationProps> {
+  static create(props: CreateOrganizationInput, id?: string) {
+    const organization = new Organization(
+      {
+        ...props,
+        password: Password.create(props.password),
+        phoneNumber: PhoneNumber.create(props.phoneNumber),
+        address: Address.create({
+          city: props.address.city,
+          number: props.address.number,
+          stateAcronym: props.address.stateAcronym,
+          stateName: props.address.stateName,
+          street: props.address.street,
+        }),
+        createdAt: props.createdAt ?? new Date(),
+      },
+      id,
+    )
 
-  private validateCorrectlyPasswordPattern(password: string): boolean {
-    const validatePassword =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>\/?]).{8,}$/
-
-    return validatePassword.test(password)
-  }
-
-  constructor(
-    props: Replace<OrganizationProps, { createdAt?: Date }>,
-    id?: string,
-  ) {
-    const doesPasswordHasCorrectlyPattern =
-      this.validateCorrectlyPasswordPattern(props.password)
-
-    if (!doesPasswordHasCorrectlyPattern) {
-      throw new PasswordNotCorrectly()
-    }
-
-    this._id = id ?? randomUUID()
-    this.props = {
-      ...props,
-      createdAt: props.createdAt ?? new Date(),
-    }
-  }
-
-  public get id() {
-    return this._id
+    return organization
   }
 
   public get name() {
     return this.props.name
   }
 
-  public set name(name: string) {
-    this.name = name
-  }
-
   public get email() {
     return this.props.email
-  }
-
-  public set email(email: string) {
-    this.email = email
   }
 
   public get password() {
     return this.props.password
   }
 
-  public set password(password: string) {
-    this.password = password
-  }
-
   public get address() {
     return this.props.address
-  }
-
-  public set address(address: string) {
-    this.address = address
   }
 
   public get cep() {
     return this.props.cep
   }
 
-  public set cep(cep: string) {
-    this.cep = cep
-  }
-
   public get phoneNumber() {
     return this.props.phoneNumber
-  }
-
-  public set phoneNumber(phoneNumber: string) {
-    this.phoneNumber = phoneNumber
   }
 
   public get createdAt(): Date {
