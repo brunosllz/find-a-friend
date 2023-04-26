@@ -1,4 +1,4 @@
-import { SearchPetsParams } from '../use-cases/search-pets'
+import { SearchPetsParams } from '../entities/types/pet'
 import { PetDTO } from './dto/pet-dto'
 
 export type QueryParams = SearchPetsParams
