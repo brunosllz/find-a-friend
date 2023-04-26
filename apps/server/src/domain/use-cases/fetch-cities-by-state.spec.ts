@@ -6,10 +6,12 @@ async function mockFetchCities() {
     {
       name: 'ARROIO GRANDE',
       id: '4301305',
+      slug: 'arroio-grande',
     },
     {
       name: 'ARVOREZINHA',
       id: '4301404',
+      slug: 'arvorezinha',
     },
   ]
 
@@ -29,6 +31,7 @@ describe('Fetch cities by state use case', () => {
         expect.objectContaining({
           id: expect.any(String),
           name: expect.any(String),
+          slug: expect.any(String),
         }),
       ]),
     )

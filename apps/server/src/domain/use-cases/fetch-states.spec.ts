@@ -7,11 +7,13 @@ async function mockFetchStates() {
       id: '11',
       acronym: 'RO',
       name: 'Rondônia',
+      slug: 'RO',
     },
     {
       id: '12',
       acronym: 'AC',
       name: 'Acre',
+      slug: 'AC',
     },
   ]
 
@@ -32,6 +34,7 @@ describe('Fetch states use case', () => {
           id: expect.any(String),
           acronym: expect.any(String),
           name: expect.any(String),
+          slug: expect.any(String),
         }),
       ]),
     )
