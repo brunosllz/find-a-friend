@@ -4,6 +4,7 @@ import { PetPhoto } from './value-objects/pet-photo'
 import { Entity } from '@/core/entities/entity'
 import { Description } from './value-objects/description'
 import { Energy } from './value-objects/energy'
+import { CreatePetInput, SearchPetsParams } from './types/pet'
 
 export type PetProps = {
   name: string
@@ -20,20 +21,6 @@ export type PetProps = {
   [key: string]: any
 }
 
-export type CreatePetInput = {
-  name: string
-  description: string
-  city: string
-  age: 'cub' | 'adolescent' | 'elderly'
-  energy: number
-  size: 'small' | 'medium' | 'big'
-  independence: 'low' | 'medium' | 'high'
-  type: 'dog' | 'cat'
-  photos: Array<{ url: string }> | null
-  orgId?: string
-  createdAt?: Date
-}
-
 export class Pet extends Entity<PetProps> {
   static create(props: CreatePetInput, id?: string) {
     const pet = new Pet(
@@ -41,9 +28,9 @@ export class Pet extends Entity<PetProps> {
         ...props,
         orgId: props.orgId ?? randomUUID(),
         createdAt: props.createdAt ?? new Date(),
-        description: new Description(props.description),
-        energy: new Energy(props.energy),
-        photos: props.photos ? new PetPhoto(props.photos) : null,
+        description: Description.create(props.description),
+        energy: Energy.create(props.energy),
+        photos: props.photos ? PetPhoto.create(props.photos) : null,
       },
       id,
     )
@@ -52,11 +39,17 @@ export class Pet extends Entity<PetProps> {
   }
 
   public containsProps(
-    props: Replace<Partial<PetProps>, { [key: string]: any }>,
+    props: Replace<Partial<SearchPetsParams>, { [key: string]: any }>,
   ): boolean {
-    return Object.keys(props).every(
-      (key) => this.props.hasOwnProperty(key) && this.props[key] === props[key],
-    )
+    return Object.keys(props).every((key) => {
+      if (key === 'energy') {
+        return (
+          this.props.hasOwnProperty(key) && this.props[key].value === props[key]
+        )
+      }
+
+      return this.props.hasOwnProperty(key) && this.props[key] === props[key]
+    })
   }
 
   public get name() {
