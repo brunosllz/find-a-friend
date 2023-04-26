@@ -1,3 +1,1 @@
-import { PetPhoto } from '@/domain/entities/pet-photo'
-
-export type PetPhotoDTO = PetPhoto
+export type PetPhotoDTO = { id: string; url: string }
