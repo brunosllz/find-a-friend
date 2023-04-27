@@ -19,7 +19,17 @@ describe('Register organization use case', () => {
       name: 'organization example',
       email: 'organization@email.com',
       password: '123456',
-      address: 'street example',
+      address: {
+        city: 'Example city name',
+        number: '123',
+        stateAcronym: 'RS',
+        stateName: 'Rio Grande do Sul',
+        street: 'Example street name',
+      },
+      location: {
+        lat: '-50.4568',
+        lng: '-98.4578',
+      },
       cep: '99999000',
       phoneNumber: '99999999999',
     })
@@ -33,7 +43,17 @@ describe('Register organization use case', () => {
       name: 'organization example',
       email: 'organization@email.com',
       password: '123456',
-      address: 'street example',
+      address: {
+        city: 'Example city name',
+        number: '123',
+        stateAcronym: 'RS',
+        stateName: 'Rio Grande do Sul',
+        street: 'Example street name',
+      },
+      location: {
+        lat: '-50.4568',
+        lng: '-98.4578',
+      },
       cep: '99999000',
       phoneNumber: '99999999999',
     })
@@ -43,26 +63,46 @@ describe('Register organization use case', () => {
         name: 'organization example',
         email: 'organization@email.com',
         password: '123456',
-        address: 'street example',
+        address: {
+          city: 'Example city name',
+          number: '123',
+          stateAcronym: 'RS',
+          stateName: 'Rio Grande do Sul',
+          street: 'Example street name',
+        },
+        location: {
+          lat: '-50.4568',
+          lng: '-98.4578',
+        },
         cep: '99999000',
         phoneNumber: '99999999999',
       }),
     ).rejects.toBeInstanceOf(OrganizationAlreadyExistsError)
   })
 
-  it('Should hash password in the registration', async () => {
+  it('Should be hashed password in the registration', async () => {
     const { organization } = await sut.execute({
       name: 'organization example',
       email: 'organization@email.com',
       password: '123456',
-      address: 'street example',
+      address: {
+        city: 'Example city name',
+        number: '123',
+        stateAcronym: 'RS',
+        stateName: 'Rio Grande do Sul',
+        street: 'Example street name',
+      },
+      location: {
+        lat: '-50.4568',
+        lng: '-98.4578',
+      },
       cep: '99999000',
       phoneNumber: '99999999999',
     })
 
     const isPasswordCorrectlyHashed = await compare(
       '123456',
-      organization.password,
+      organization.password.value,
     )
 
     expect(isPasswordCorrectlyHashed).toBe(true)
