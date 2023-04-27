@@ -11,7 +11,7 @@ export type CreatePetInput = {
   size: 'small' | 'medium' | 'big'
   independence: 'low' | 'medium' | 'high'
   type: 'dog' | 'cat'
-  photos: Array<{ url: string }> | null
+  photos?: Array<{ id?: string; url: string; petId: string }> | null
   orgId?: string
   createdAt?: Date
 }
