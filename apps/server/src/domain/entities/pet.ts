@@ -1,10 +1,10 @@
 import { randomUUID } from 'node:crypto'
 import { Replace } from '../helpers/Replace'
-import { PetPhoto } from './value-objects/pet-photo'
 import { Entity } from '@/core/entities/entity'
 import { Description } from './value-objects/description'
 import { Energy } from './value-objects/energy'
 import { CreatePetInput, SearchPetsParams } from './types/pet'
+import { PetPhotos } from './value-objects/pet-photos'
 
 export type PetProps = {
   name: string
@@ -15,7 +15,7 @@ export type PetProps = {
   size: 'small' | 'medium' | 'big'
   independence: 'low' | 'medium' | 'high'
   type: 'dog' | 'cat'
-  photos: PetPhoto | null
+  photos: PetPhotos | null
   orgId: string
   createdAt: Date
   [key: string]: any
@@ -30,7 +30,7 @@ export class Pet extends Entity<PetProps> {
         createdAt: props.createdAt ?? new Date(),
         description: Description.create(props.description),
         energy: Energy.create(props.energy),
-        photos: props.photos ? PetPhoto.create(props.photos) : null,
+        photos: props.photos ? PetPhotos.create(props.photos) : null,
       },
       id,
     )
@@ -84,8 +84,12 @@ export class Pet extends Entity<PetProps> {
     return this.props.type
   }
 
-  public get photos(): PetPhoto | null {
+  public get photos(): PetPhotos | null {
     return this.props.photos
+  }
+
+  public savePhotos(photos: PetPhotos) {
+    this.props.photos = photos
   }
 
   public get orgId() {
