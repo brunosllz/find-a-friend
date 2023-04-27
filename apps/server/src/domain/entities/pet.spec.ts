@@ -1,11 +1,14 @@
 import { MakePet } from 'test/factories/pet-factory'
 import { describe, expect, it } from 'vitest'
+import { PetPhotos } from './value-objects/pet-photos'
 
 describe('Pet', () => {
   it('Should be able create a pet', () => {
     const pet = MakePet({
       name: 'princess',
     })
+
+    console.log(pet.photos?.values)
 
     expect(pet).toBeTruthy()
     expect(pet).toEqual(
@@ -54,25 +57,25 @@ describe('Pet', () => {
   it('Should be create a pet without photos', () => {
     const pet = MakePet({
       name: 'princess',
-      photos: undefined,
     })
 
     expect(pet.photos).toBeNull()
   })
 
   it('Should be not create a pet with amount photos more than five', () => {
-    expect(() =>
-      MakePet({
-        name: 'princess',
-        photos: [
-          { url: 'http://example.com/photo1.png' },
-          { url: 'http://example.com/photo2.png' },
-          { url: 'http://example.com/photo2.png' },
-          { url: 'http://example.com/photo2.png' },
-          { url: 'http://example.com/photo2.png' },
-          { url: 'http://example.com/photo2.png' },
-        ],
-      }),
-    ).toThrow()
+    const pet = MakePet({
+      name: 'princess',
+    })
+
+    const photos = [
+      { url: 'http://example.com/photo1.png', petId: pet.id },
+      { url: 'http://example.com/photo2.png', petId: pet.id },
+      { url: 'http://example.com/photo2.png', petId: pet.id },
+      { url: 'http://example.com/photo2.png', petId: pet.id },
+      { url: 'http://example.com/photo2.png', petId: pet.id },
+      { url: 'http://example.com/photo2.png', petId: pet.id },
+    ]
+
+    expect(() => PetPhotos.create(photos)).toThrow()
   })
 })
