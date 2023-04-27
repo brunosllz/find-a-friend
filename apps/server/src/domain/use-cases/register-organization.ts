@@ -4,12 +4,22 @@ import { OrganizationAlreadyExistsError } from './errors/organization-already-ex
 import { hash } from 'bcryptjs'
 
 type RegisterOrganizationUseCaseRequest = {
-  address: string
   cep: string
   email: string
   name: string
   password: string
   phoneNumber: string
+  address: {
+    street: string
+    city: string
+    number: string
+    stateName: string
+    stateAcronym: string
+  }
+  location: {
+    lat: string
+    lng: string
+  }
 }
 
 type RegisterOrganizationUseCaseResponse = {
@@ -23,6 +33,7 @@ export class RegisterOrganizationUseCase {
 
   async execute({
     address,
+    location,
     cep,
     email,
     name,
@@ -37,8 +48,9 @@ export class RegisterOrganizationUseCase {
 
     const passwordHashed = await hash(password, 8)
 
-    const createdOrganization = new Organization({
+    const createdOrganization = Organization.create({
       address,
+      location,
       cep,
       email,
       name,
