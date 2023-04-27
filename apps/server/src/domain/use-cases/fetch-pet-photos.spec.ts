@@ -5,6 +5,7 @@ import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
 import { InMemoryPetsPhotosRepository } from 'test/repositories/in-memory-pets-photos-repository'
 import { FetchPetPhotosUseCase } from './fetch-pet-photos'
+import { MakePetPhotos } from 'test/factories/pet-photos-factory'
 
 describe('Fetch pet photos use case', () => {
   let petsRepository: InMemoryPetsRepository
@@ -18,16 +19,18 @@ describe('Fetch pet photos use case', () => {
   })
 
   it('Should be able fetch all photo of pet', async () => {
-    const { photos: petPhotos, id } = await petsRepository.create(MakePet())
-    if (petPhotos) {
-      await petsPhotosRepository.save(petPhotos.value, id)
-    }
+    const pet = MakePet()
+    const createdPhotos = MakePetPhotos(pet.id)
+    pet.savePhotos(createdPhotos)
+
+    await petsRepository.create(pet)
+    await petsPhotosRepository.save(createdPhotos)
 
     const { photos } = await sut.execute({
-      id,
+      id: pet.id,
     })
 
-    expect(photos).toEqual(
+    expect(photos.values).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
           url: expect.any(String),
