@@ -1,4 +1,5 @@
 import { Pet } from '../entities/pet'
+import { PetPhotos } from '../entities/value-objects/pet-photos'
 import { OrganizationsRepository } from '../repositories/organizations-repository'
 import { PetsPhotosRepository } from '../repositories/pets-photos-repository'
 import { PetsRepository } from '../repositories/pets-repository'
@@ -55,17 +56,24 @@ export class CreatePetUseCase {
       size,
       independence,
       type,
-      photos: photos ?? null,
       orgId,
     })
 
     const pet = await this.petsRepository.create(createdPet)
 
-    if (createdPet.photos) {
-      await this.petPhotosRepository.save(
-        createdPet.photos.value,
-        createdPet.id,
+    if (photos) {
+      const createdPhotos = PetPhotos.create(
+        photos.map((photo) => {
+          return {
+            ...photo,
+            petId: pet.id,
+          }
+        }),
       )
+
+      pet.savePhotos(createdPhotos)
+
+      await this.petPhotosRepository.save(createdPhotos)
     }
 
     return { pet }
