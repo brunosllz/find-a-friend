@@ -52,8 +52,16 @@ export class Organization extends Entity<OrganizationProps> {
     return this.props.password
   }
 
+  public setHashedPassword(password: string) {
+    this.props.password = Password.create(password)
+  }
+
   public get address() {
     return this.props.address
+  }
+
+  public get location() {
+    return this.props.location
   }
 
   public get cep() {
