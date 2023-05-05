@@ -3,7 +3,22 @@ import { InMemoryOrganizationsRepository } from 'test/repositories/in-memory-org
 import { describe, expect, it, beforeEach } from 'vitest'
 import { Organization } from '../entities/organization'
 import { OrganizationAlreadyExistsError } from './errors/organization-already-exists-error'
-import { RegisterOrganizationUseCase } from './register-organization'
+import {
+  AddressParams,
+  LocationParams,
+  RegisterOrganizationUseCase,
+} from './register-organization'
+
+async function mockGetGeoLocation(
+  address: AddressParams,
+): Promise<LocationParams> {
+  const location = {
+    lat: '-50.4568',
+    lng: '-98.4578',
+  }
+
+  return location
+}
 
 describe('Register organization use case', () => {
   let organizationsRepository: InMemoryOrganizationsRepository
@@ -11,14 +26,17 @@ describe('Register organization use case', () => {
 
   beforeEach(() => {
     organizationsRepository = new InMemoryOrganizationsRepository()
-    sut = new RegisterOrganizationUseCase(organizationsRepository)
+    sut = new RegisterOrganizationUseCase(
+      organizationsRepository,
+      mockGetGeoLocation,
+    )
   })
 
   it('Should be able register a organization', async () => {
     const { organization } = await sut.execute({
       name: 'organization example',
       email: 'organization@email.com',
-      password: '123456',
+      password: 'Org1423!',
       address: {
         city: 'Example city name',
         number: '123',
@@ -26,15 +44,17 @@ describe('Register organization use case', () => {
         stateName: 'Rio Grande do Sul',
         street: 'Example street name',
       },
-      location: {
-        lat: '-50.4568',
-        lng: '-98.4578',
-      },
       cep: '99999000',
       phoneNumber: '99999999999',
     })
 
     expect(organization.id).toEqual(expect.any(String))
+    expect(organization.location).toEqual(
+      expect.objectContaining({
+        lat: expect.any(String),
+        lng: expect.any(String),
+      }),
+    )
     expect(organization).toBeInstanceOf(Organization)
   })
 
@@ -42,17 +62,13 @@ describe('Register organization use case', () => {
     await sut.execute({
       name: 'organization example',
       email: 'organization@email.com',
-      password: '123456',
+      password: 'Org1423!',
       address: {
         city: 'Example city name',
         number: '123',
         stateAcronym: 'RS',
         stateName: 'Rio Grande do Sul',
         street: 'Example street name',
-      },
-      location: {
-        lat: '-50.4568',
-        lng: '-98.4578',
       },
       cep: '99999000',
       phoneNumber: '99999999999',
@@ -62,17 +78,13 @@ describe('Register organization use case', () => {
       sut.execute({
         name: 'organization example',
         email: 'organization@email.com',
-        password: '123456',
+        password: 'Org1423!',
         address: {
           city: 'Example city name',
           number: '123',
           stateAcronym: 'RS',
           stateName: 'Rio Grande do Sul',
           street: 'Example street name',
-        },
-        location: {
-          lat: '-50.4568',
-          lng: '-98.4578',
         },
         cep: '99999000',
         phoneNumber: '99999999999',
@@ -84,7 +96,7 @@ describe('Register organization use case', () => {
     const { organization } = await sut.execute({
       name: 'organization example',
       email: 'organization@email.com',
-      password: '123456',
+      password: 'Org1423!',
       address: {
         city: 'Example city name',
         number: '123',
@@ -92,16 +104,12 @@ describe('Register organization use case', () => {
         stateName: 'Rio Grande do Sul',
         street: 'Example street name',
       },
-      location: {
-        lat: '-50.4568',
-        lng: '-98.4578',
-      },
       cep: '99999000',
       phoneNumber: '99999999999',
     })
 
     const isPasswordCorrectlyHashed = await compare(
-      '123456',
+      'Org1423!',
       organization.password.value,
     )
 
