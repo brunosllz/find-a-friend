@@ -4,7 +4,7 @@ export class Address {
   readonly value: string
 
   private constructor(value: string) {
-    this.value = value
+    this.value = value.toLowerCase()
   }
 
   /**
