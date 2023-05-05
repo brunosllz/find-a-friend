@@ -4,7 +4,7 @@ export type City = {
   slug: string
 }
 
-type FetchCities = (acronymState: string) => Promise<City[]>
+type FetchCitiesService = (acronymState: string) => Promise<City[]>
 
 type FetchCitiesByStateUseCaseRequest = {
   acronymState: string
@@ -13,7 +13,7 @@ type FetchCitiesByStateUseCaseRequest = {
 type FetchCitiesByStateUseCaseResponse = City[]
 
 export class FetchCitiesByStateUseCase {
-  constructor(private FetchCities: FetchCities) {}
+  constructor(private FetchCities: FetchCitiesService) {}
 
   async execute({
     acronymState,

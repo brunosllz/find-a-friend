@@ -7,12 +7,12 @@ export type State = {
   slug: string
 }
 
-type FetchStates = () => Promise<State[]>
+type FetchStatesService = () => Promise<State[]>
 
 type FetchStatesUseCaseResponse = State[]
 
 export class FetchStatesUseCase {
-  constructor(private fetchStates: FetchStates) {}
+  constructor(private fetchStates: FetchStatesService) {}
 
   async execute(): Promise<FetchStatesUseCaseResponse> {
     const states = await this.fetchStates()
